@@ -1,56 +1,11 @@
-<script setup lang="ts">
+<script setup>
 const route = useRoute()
 
 // When accessing /posts/1, route.params.id will be 1
 console.log(route.params.id)
 
-
-const data = [
-    {
-        id: "1",
-        createdAt: "01.01.2025",
-        text: "Hello world",
-        mood: "happy",
-    },
-    {
-        id: "2",
-        createdAt: "02.01.2025",
-        text: "Hello world",
-        mood: "happy"
-    },
-    {
-        id: "3",
-        createdAt: "03.01.2025",
-        text: "Hello world",
-        mood: "happy"
-    },
-    {
-        id: "4",
-        createdAt: "04.01.2025",
-        text: "Hello world",
-        mood: "happy"
-    },
-    {
-        id: "5",
-        createdAt: "05.01.2025",
-        text: "Hello world",
-        mood: "happy"
-    },
-    {
-        id: "6",
-        createdAt: "06.01.2025",
-        text: "Hello world",
-        mood: "happy"
-    }
-]
-
-const entry = computed(() => {
-    return data.filter((ent) => ent.id === route.params.id)[0]
-})
-
-watchEffect(() => {
-    console.log(entry)
-})
+// get data from api call
+const { data: entry } = await useFetch(`/api/entries/${route.params.id}`)
 
 </script>
 
@@ -85,6 +40,10 @@ watchEffect(() => {
 
 
     </div>
+
+    <pre>
+       data: {{ entry }}
+    </pre>
 
 
 </template>
