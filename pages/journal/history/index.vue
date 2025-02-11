@@ -1,6 +1,6 @@
 <script setup>
 
-const { data } = await useFetch('/api/getEntries')
+const { data } = await useFetch('/api/history')
 
 // idea: color entries according to mood
 // color mood text according to mood

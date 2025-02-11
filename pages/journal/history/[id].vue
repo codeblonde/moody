@@ -37,13 +37,6 @@ const { data: entry } = await useFetch(`/api/entries/${route.params.id}`)
                 <img src="https://placecats.com/bella/300/200" class="rounded-xl">
             </div>
         </div>
-
-
     </div>
-
-    <pre>
-       data: {{ entry }}
-    </pre>
-
 
 </template>
