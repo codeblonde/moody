@@ -1,3 +1,7 @@
+import { eq } from "drizzle-orm"
+import { db } from "~/server/db/client"
+import { journalEntries } from "~/server/db/schema"
+
 
 const data = [
     {
@@ -40,11 +44,19 @@ const data = [
     }
 ]
 
-export default defineEventHandler((event) => {
+export default defineEventHandler(async (event) => {
     const id = getRouterParam(event, 'id')
 
+    const result = await db.select().from(journalEntries).where(eq(journalEntries.entryId, id))
+    console.log(result[0])
+    return result[0]
+
+
+    
+    
+    // return mockdata
   
-    return (data.filter((ent) => ent.id === id)[0])
+    //return (data.filter((ent) => ent.id === id)[0])
   })
   
 
