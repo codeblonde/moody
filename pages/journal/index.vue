@@ -1,15 +1,27 @@
 <script setup>
 import { ref } from "vue"
-import { journalEntries } from "~/server/db/schema";
+
 
 const newEntry = ref("")
 
 const submitNewEntry = async () => {
+
+    // set modal show ref state to true with loading content
+    // set loading to true
+
     const res = await $fetch('/api/entries/createEntry', {
         method: 'post',
         body: { data: newEntry.value }
     })
     console.log(res)
+
+    // loading false
+    // remove loading content from modal
+    // show button in modal to navigato to new entry
+
+    // clear newEntry
+
+    await navigateTo(`/journal/history/${res.insertedId}`)
 }
 
 </script>
@@ -25,6 +37,7 @@ const submitNewEntry = async () => {
                 class="px-8 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-all shadow">
                 Submit
             </button>
+            <!--modal-->
         </div>
     </div>
 </template>

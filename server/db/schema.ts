@@ -16,6 +16,8 @@ const analysis = sqliteTable("analysis",
   createdAt: text().default(sql`(CURRENT_TIMESTAMP)`),
   mood: text().notNull(),
   score: int().notNull(),
-  color: text().notNull()
+  color: text().notNull(),
+  suggestion: text().notNull(),
+  summary: text().notNull()
   
 });
