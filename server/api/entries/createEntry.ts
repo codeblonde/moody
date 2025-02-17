@@ -9,6 +9,8 @@ export default defineEventHandler(async (event) => {
         insertedId: journalEntries.entryId
     })
 
+    console.log("AFTER JOURNAL ENTRY")
+
 
     if (!dbResult[0]?.insertedId) {
         throw new Error("Failed to insert journal entry");
@@ -17,8 +19,10 @@ export default defineEventHandler(async (event) => {
     const analysisAI = await analyzeEntry(entry.data)
     console.log(analysisAI)
 
+    console.log("AFTER AI")
+
     const analysisResult = await db.insert(analysis).values({ 
-        analysisId: dbResult[0].insertedId,
+        journalId: dbResult[0].insertedId,
         mood: analysisAI.mood,
         color: analysisAI.color,
         score: analysisAI.score,
@@ -26,6 +30,8 @@ export default defineEventHandler(async (event) => {
         suggestion: analysisAI.suggestion,
     
         })
+
+    console.log("AFTER ANALYSIS ENTRY")
 
     console.log(dbResult)
     return dbResult[0]

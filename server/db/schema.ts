@@ -13,14 +13,18 @@ export const journalEntries = sqliteTable("journal_entries",
 });
 
 
+export const journalRelations = relations(journalEntries, ({ one }) => ({
+	analysis: one(analysis),
+}));
+
 
 export const analysis = sqliteTable("analysis", 
   {
-  // analysisId: text().primaryKey().$defaultFn(() => createId()),
-  analysisId: text("analysisId")
-    .primaryKey()
-    .references(() => journalEntries.entryId, { onDelete: "cascade" }), 
-  // journalId: text('entryId').references(() => journalEntries.entryId),
+  analysisId: text("analysisId").primaryKey().$defaultFn(() => createId()),
+  // analysisId: text("analysisId")
+  //   .primaryKey()
+  //   .references(() => journalEntries.entryId, { onDelete: "cascade" }), 
+  journalId: text('entryId').references(() => journalEntries.entryId, {onDelete: 'cascade'}),
   // createdAt: text().default(sql`(CURRENT_TIMESTAMP)`),
   mood: text().notNull(),
   score: int().notNull(),
@@ -30,13 +34,6 @@ export const analysis = sqliteTable("analysis",
   
 });
 
-
-export const journalRelations = relations(journalEntries, ({ one }) => ({
-	analysis: one(analysis, {
-    fields: [journalEntries.entryId],
-    references: [analysis.analysisId],
-  }),
-}));
 
 export const analysisRelations = relations(analysis, ({ one }) => ({
 	entry: one(journalEntries, { 
