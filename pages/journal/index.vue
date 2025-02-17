@@ -22,17 +22,12 @@ const submitNewEntry = async () => {
     console.log(res)
 
     redirectId.value = res.insertedId
-    // console.log("Id for rerouting:", redirectId)
-    // console.log(`/journal/history/${redirectId.value}`)
+
     // loading false
-    // remove loading content from modal
-    // show button in modal to navigato to new entry
     loadingState.value = false
 
     // clear newEntry
     newEntry.value = ""
-
-    // await navigateTo(`/journal/history/${res.insertedId}`)
 }
 
 const redirectToEntryPage = async () => {
@@ -68,11 +63,11 @@ const redirectToEntryPage = async () => {
                 <div v-else class="text-center">
                     <p class="text-lg font-semibold text-green-600">Your entry has been successfully submitted!</p>
                     <button @click="modalState = false"
-                        class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                        class="mt-4 mr-4 px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-all">
                         Close
                     </button>
                     <button @click="redirectToEntryPage"
-                        class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                        class="mt-4 px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-all ">
                         Go to Entry
                     </button>
                 </div>

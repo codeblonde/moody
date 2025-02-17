@@ -1,7 +1,7 @@
 <template>
     <div class="fixed inset-0 flex items-center justify-center z-50 pointer-events-none" @click.self="close">
         <!-- Modal Card -->
-        <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative z-10 pointer-events-auto">
+        <div class="bg-gray-600 p-6 rounded-lg shadow-lg max-w-md w-full relative z-10 pointer-events-auto">
             <slot></slot>
         </div>
         <!-- Small Overlay (Blurred Background Effect) -->
