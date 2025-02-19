@@ -1,49 +1,21 @@
+import { db } from "~/server/db/client"
+import { analysis } from "~/server/db/schema"
+import { desc } from 'drizzle-orm'
+
+
+
 export default defineEventHandler(async (event) => {
-    return [
-            {
-                id: 1,
-                createdAt: "01.01.2025",
-                mood: "happy",
-                score: -2
-        
-            },
-            {
-        
-                id: 2,
-                createdAt: "02.01.2025",
-                mood: "happy",
-                score: 0
-            },
-            {
-                id: 3,
-                createdAt: "03.01.2025",
-                mood: "happy",
-                score: 3
-            },
-            {
-                id: 4,
-                createdAt: "04.01.2025",
-                mood: "happy",
-                score: 4
-            },
-            {
-                id: 5,
-                createdAt: "05.01.2025",
-                mood: "happy",
-                score: 1
-            },
-            {
-                id: 6,
-                createdAt: "06.01.2025",
-                mood: "happy",
-                score: -3
-            },
-            {
-                id: 7,
-                createdAt: "07.01.2025",
-                mood: "happy",
-                score: 0
-            }
-        
-        ]
+    const result = await db.select({ 
+        score: analysis.score,
+        date: analysis.createdAt,
+        color: analysis.color,
+        mood: analysis.mood,
+        summary: analysis.summary,
+        })
+        .from(analysis).orderBy(desc(analysis.createdAt)).limit(7)
+
+    console.log(result)
+    return result
   })
+
+  

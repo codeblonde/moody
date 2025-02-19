@@ -25,7 +25,7 @@ export const analysis = sqliteTable("analysis",
   //   .primaryKey()
   //   .references(() => journalEntries.entryId, { onDelete: "cascade" }), 
   journalId: text('entryId').references(() => journalEntries.entryId, {onDelete: 'cascade'}),
-  // createdAt: text().default(sql`(CURRENT_TIMESTAMP)`),
+  createdAt: text("createdAt").default(sql`(CURRENT_TIMESTAMP)`),
   mood: text().notNull(),
   score: int().notNull(),
   color: text().notNull(),

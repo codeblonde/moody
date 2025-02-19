@@ -22,10 +22,13 @@ console.log(entry)
         <!--<div class="flex flex-wrap gap-2">-->
         <div>
             <div class="flex items-start gap-4">
-                <div :style="{ backgroundColor: entry.analysis.color }" class="p-2 pr-4 pl-4 rounded-xl shadow-lg">
+                <div class="p-2 pr-4 pl-4 bg-gray-800 rounded-xl shadow-lg">
                     mood: {{ entry.analysis.mood
                     }}</div>
                 <div class="p-2 pr-4 pl-4 bg-gray-800 rounded-xl shadow-lg">sentiment score: {{ entry.analysis.score }}
+                </div>
+                <div :style="{ backgroundColor: entry.analysis.color }" class="p-2 pr-4 pl-4 rounded-xl shadow-lg">
+                    color
                 </div>
             </div>
             <div class="flex flex-col content-center mt-4">
