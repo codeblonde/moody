@@ -19,7 +19,6 @@ console.log(entry)
             </div>
             {{ entry.journal_entries.entryText }}
         </div>
-        <!--<div class="flex flex-wrap gap-2">-->
         <div>
             <div class="flex items-start gap-4">
                 <div class="p-2 pr-4 pl-4 bg-gray-800 rounded-xl shadow-lg">

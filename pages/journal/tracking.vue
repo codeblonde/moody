@@ -6,37 +6,47 @@ import { onMounted, computed } from 'vue';
 // IDEA: add more custom trackers
 //  last 7 days vs last 30 days
 
+// TODO: reverse order of data points
+
 const context = ref()
 
 const { data: entries } = await useFetch('/api/analytics/moodtracking')
 console.log("The data is here!")
 
-
+const dataDict = reactive({
+    colors: [],
+    scores: [],
+    dates: [],
+    moods: [],
+    summaries: []
+})
 
 onMounted(() => {
+    console.log()
 
-    const colors = computed(() => entries.value.map(entry => entry.color))
-    const scores = computed(() => entries.value.map(entry => entry.score))
-    const labels = computed(() => entries.value.map(entry => new Date(entry.date).toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "2-digit"
-    })
-    ))
-    const moods = computed(() => entries.value.map(entry => entry.mood))
-    const summaries = computed(() => entries.value.map(entry => entry.summary))
+    for (let d of entries.value) {
+        dataDict.colors.push(d.color)
+        dataDict.scores.push(d.score)
+        dataDict.dates.push(new Date(d.date).toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "2-digit"
+        }))
+        dataDict.moods.push(d.mood)
+        dataDict.summaries.push(d.summary)
+    }
 
 
     const data = {
-        labels: labels.value,
+        labels: dataDict.dates,
         datasets: [{
-            label: 'Your mood',
-            data: scores.value,
+            label: 'Mood curve',
+            data: dataDict.scores,
             borderColor: 'rgb(230, 0, 118)',
             borderWidth: 2,
             tension: 0.2,
-            pointBorderColor: colors.value,
-            pointBackgroundColor: colors.value,
+            pointBorderColor: dataDict.colors,
+            pointBackgroundColor: dataDict.colors,
         }]
     }
 
@@ -57,6 +67,12 @@ onMounted(() => {
         type: 'line',
         data: data,
         options: {
+            layout: {
+                padding: {
+                    right: 28,
+                    left: 10,
+                }
+            },
             scales: {
                 y: {
                     min: -5,
@@ -69,6 +85,10 @@ onMounted(() => {
 
                 },
                 x: {
+                    // grid: {
+                    //     color: 'zinc',
+                    // },
+                    reverse: true,
                     ticks: {
                         color: 'white',
                         font: {
@@ -88,8 +108,8 @@ onMounted(() => {
                     callbacks: {
                         label: function (context) {
                             // let label = context.dataset.label || ''
-                            let moodLabel = moods.value[context.dataIndex] || 'help'
-                            let summaryLabel = summaries.value[context.dataIndex]
+                            let moodLabel = dataDict.moods[context.dataIndex] || 'help'
+                            let summaryLabel = dataDict.summaries[context.dataIndex]
 
                             // let value = customLabel += context.parsed.y
 
