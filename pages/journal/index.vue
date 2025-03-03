@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from "vue"
 import CustomModal from "~/components/CustomModal.vue"
+import Button from "~/components/Button.vue"
+import BgCard from "~/components/BgCard.vue"
 
 
 const newEntry = ref("")
@@ -42,41 +44,37 @@ const redirectToEntryPage = async () => {
 </script>
 
 <template>
-    <div class="p-8 bg-gray-800 rounded-xl shadow-lg flex flex-grow flex-col gap-4">
-        <button @click="getPrompt"
-            class="self-start px-8 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-all shadow">
+    <BgCard class="flex-grow gap-4">
+        <Button class="self-start">
             Generate Prompt
-        </button>
+        </Button>
 
         <textarea v-model="newEntry" class="border-2 rounded-2xl border-pink-600 flex-grow p-3"
             placeholder="How was your day?" />
 
         <div class="flex justify-end">
-            <button @click="submitNewEntry"
-                class="px-8 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-all shadow">
+            <Button @click="submitNewEntry">
                 Submit
-            </button>
-
-            <!--modal-->
-            <CustomModal v-if="modalState" :visible="modalState" @close="modalState = false">
-                <div v-if="loadingState" class="text-center">
-                    <p class="text-lg font-medium">Processing your entry...</p>
-                    <div class="loading-spinner mx-auto mt-4"></div>
-                </div>
-                <div v-else class="text-center">
-                    <p class="text-lg font-semibold text-green-600">Your entry has been successfully submitted!</p>
-                    <button @click="modalState = false"
-                        class="mt-4 mr-4 px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-all">
-                        Close
-                    </button>
-                    <button @click="redirectToEntryPage"
-                        class="mt-4 px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-all ">
-                        Go to Entry
-                    </button>
-                </div>
-            </CustomModal>
+            </Button>
         </div>
-    </div>
+
+        <!--modal-->
+        <CustomModal v-if="modalState" :visible="modalState" @close="modalState = false">
+            <div v-if="loadingState" class="text-center">
+                <p class="text-lg font-medium">Processing your entry...</p>
+                <div class="loading-spinner mx-auto mt-4"></div>
+            </div>
+            <div v-else class="text-center">
+                <p class="text-lg font-semibold text-white">Your entry has been successfully submitted!</p>
+                <Button class="mt-4 mr-4" @click="modalState = false">
+                    Close
+                </Button>
+                <Button class="mt-4" @click="redirectToEntryPage">
+                    Go to Entry
+                </Button>
+            </div>
+        </CustomModal>
+    </BgCard>
 </template>
 
 

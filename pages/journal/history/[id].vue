@@ -1,10 +1,12 @@
 <script setup>
+import Tag from '~/components/Tag.vue'
 const route = useRoute()
 
 // When accessing /posts/1, route.params.id will be 1
 console.log(route.params.id)
 
 // get data from api call
+// TODO: get sun or moon icon for time of day when entry was written
 const { data: entry } = await useFetch(`/api/entries/${route.params.id}`)
 console.log(entry)
 
@@ -15,26 +17,30 @@ console.log(entry)
     <div class="grid grid-cols-2 gap-8">
         <div class="p-4 bg-gray-800 rounded-xl shadow-lg">
             <div class="text-right pb-4">
-                {{ entry.journal_entries.createdAt }}
+                {{ new Date(entry.journal_entries.createdAt).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "2-digit"
+                }) }}
             </div>
             {{ entry.journal_entries.entryText }}
         </div>
         <div>
-            <div class="flex items-start gap-4">
-                <div class="p-2 pr-4 pl-4 bg-gray-800 rounded-xl shadow-lg">
+            <div class="flex justify-end gap-4">
+                <Tag>
                     mood: {{ entry.analysis.mood
-                    }}</div>
-                <div class="p-2 pr-4 pl-4 bg-gray-800 rounded-xl shadow-lg">sentiment score: {{ entry.analysis.score }}
-                </div>
-                <div :style="{ backgroundColor: entry.analysis.color }" class="p-2 pr-4 pl-4 rounded-xl shadow-lg">
+                    }}</Tag>
+                <Tag>sentiment score: {{ entry.analysis.score }}
+                </Tag>
+                <Tag :color="entry.analysis.color">
                     color
-                </div>
+                </Tag>
             </div>
             <div class="flex flex-col content-center mt-4">
                 <img src="https://placecats.com/bella/300/200" class="rounded-xl">
             </div>
-            <div class="p-2 pr-4 pl-4 mt-4 bg-gray-800 rounded-xl shadow-lg">suggestion: {{ entry.analysis.suggestion }}
-            </div>
+            <Tag class="mt-4">suggestion: {{ entry.analysis.suggestion }}
+            </Tag>
         </div>
     </div>
 

@@ -1,5 +1,7 @@
 <script setup>
 
+import BgCard from '~/components/BgCard.vue';
+
 const { data } = await useFetch('/api/history')
 
 // idea: color entries according to mood
@@ -16,20 +18,23 @@ const truncateText = (text, wordLimit) => {
 
 
 <template>
-    <div class="grid grid-cols-3 gap-4 justify-items-stretch">
-        <NuxtLink :to="`/journal/history/${entry.entryId}`" v-for="entry in data"
-            class="p-6 bg-gray-800 rounded-xl shadow-lg text-center flex flex-col gap-2 auto-rows-min">
-            <div class="pb-3 text-right"> {{ new Date(entry.createdAt).toLocaleDateString("en-GB", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "2-digit"
-            }) }}</div>
-            <div class="pb-3 text-justify flex-grow"> {{ truncateText(entry.entryText, 30) }}</div>
-            <div class="text-right italic"> {{ entry.mood }}</div> <!-- fix to show mood-->
-
-        </NuxtLink>
-
-
+    <div class="grid grid-cols-3 gap-4 items-stretch grid-elements">
+        <BgCard padding="small" v-for="entry in data">
+            <NuxtLink :to="`/journal/history/${entry.entryId}`" class="gap-3 flex flex-col grow">
+                <div class="text-right"> {{ new Date(entry.createdAt).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "2-digit"
+                }) }}</div>
+                <div class="text-justify flex-grow"> {{ truncateText(entry.entryText, 30) }}</div>
+                <div class="text-right italic"> {{ entry.mood }}</div>
+            </NuxtLink>
+        </BgCard>
     </div>
-
 </template>
+
+<style>
+.grid-elements {
+    grid-auto-rows: 1fr;
+}
+</style>

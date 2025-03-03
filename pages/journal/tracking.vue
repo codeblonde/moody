@@ -2,6 +2,7 @@
 
 import { Chart } from 'chart.js/auto';
 import { onMounted, computed } from 'vue';
+import BgCard from '~/components/BgCard.vue';
 
 // IDEA: add more custom trackers
 //  last 7 days vs last 30 days
@@ -160,10 +161,10 @@ onMounted(() => {
 
 
 <template>
-    <div class="p-8 bg-gray-800 rounded-xl shadow-lg flex flex-grow flex-col gap-4">
-        <div class="p-8 bg-gray-700/50 rounded-xl shadow-lg flex flex-col gap-4">
+    <BgCard class="grow">
+        <BgCard type="secondary">
             <canvas ref="context"></canvas>
-        </div>
-    </div>
+        </BgCard>
+    </BgCard>
 
 </template>
