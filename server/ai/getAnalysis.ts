@@ -13,7 +13,7 @@ const analysisSchema = z.object({
 });
 
 
-export const analyzeEntry = ( async (entry) => {
+export const analyzeEntry = async (entry) => {
     const openai = new OpenAI()
     const completion = await openai.beta.chat.completions.parse({
         model: "gpt-4o-mini",
@@ -29,4 +29,4 @@ export const analyzeEntry = ( async (entry) => {
       return analysis
 
 
-})
+}

@@ -1,6 +1,12 @@
 <script setup>
 import Tag from '~/components/Tag.vue'
+import Button from '~/components/Button.vue'
+import LoadingSpinner from '~/components/LoadingSpinner.vue'
+
+
 const route = useRoute()
+const imageUrl = ref("")
+const loadingState = ref(false)
 
 // When accessing /posts/1, route.params.id will be 1
 console.log(route.params.id)
@@ -9,6 +15,13 @@ console.log(route.params.id)
 // TODO: get sun or moon icon for time of day when entry was written
 const { data: entry } = await useFetch(`/api/entries/${route.params.id}`)
 console.log(entry)
+
+const generateImageFromEntry = async () => {
+    loadingState.value = true
+    imageUrl.value = await $fetch(`/api/entries/image/${route.params.id}`)
+    console.log(imageUrl)
+    loadingState.value = false
+}
 
 </script>
 
@@ -37,7 +50,12 @@ console.log(entry)
                 </Tag>
             </div>
             <div class="flex flex-col content-center mt-4">
-                <img src="https://placecats.com/bella/300/200" class="rounded-xl">
+                <Button @click="generateImageFromEntry">Generate Image</Button>
+                <!-- <img src="https://placecats.com/bella/300/200" class="rounded-xl"> -->
+                <LoadingSpinner v-if="loadingState" class="mt-4">
+                    Generating your image...
+                </LoadingSpinner>
+                <img :src="imageUrl" class="rounded-xl mt-4" v-if="imageUrl">
             </div>
             <Tag class="mt-4">suggestion: {{ entry.analysis.suggestion }}
             </Tag>
@@ -45,3 +63,5 @@ console.log(entry)
     </div>
 
 </template>
+
+<style scoped></style>
