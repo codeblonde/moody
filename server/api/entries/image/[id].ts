@@ -1,7 +1,7 @@
 import { generateImage } from "~/server/ai/getImage"
 import { eq } from "drizzle-orm"
 import { db } from "~/server/db/client"
-import { journalEntries } from "~/server/db/schema"
+import { analysis, journalEntries } from "~/server/db/schema"
 
 export default defineEventHandler(async (event) => {
     const id = getRouterParam(event, 'id')
@@ -15,8 +15,16 @@ export default defineEventHandler(async (event) => {
     console.log(result[0])
     console.log(entry)
 
-    const imageUrl = await generateImage(entry) 
-    console.log(imageUrl)
-    return imageUrl
+    const imgUrl = await generateImage(entry) 
+    console.log(imgUrl)
 
+
+    await db.update(analysis).set({ 
+      imageUrl: imgUrl,
+    }).where(eq(analysis.journalId, id))
+
+    console.log("Image url updated in db")
+
+    return imgUrl
+        
   })

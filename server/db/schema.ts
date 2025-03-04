@@ -30,7 +30,8 @@ export const analysis = sqliteTable("analysis",
   score: int().notNull(),
   color: text().notNull(),
   suggestion: text().notNull(),
-  summary: text().notNull()
+  summary: text().notNull(),
+  imageUrl: text('imageUrl')
   
 });
 

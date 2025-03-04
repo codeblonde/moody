@@ -16,6 +16,14 @@ console.log(route.params.id)
 const { data: entry } = await useFetch(`/api/entries/${route.params.id}`)
 console.log(entry)
 
+watch(entry, () => {
+    if (entry?.value.analysis?.imageUrl) {
+        imageUrl.value = entry.value.analysis.imageUrl
+    } else {
+        console.log("No stored image data avilable")
+    }
+}, { immediate: true })
+
 const generateImageFromEntry = async () => {
     loadingState.value = true
     imageUrl.value = await $fetch(`/api/entries/image/${route.params.id}`)
@@ -50,12 +58,8 @@ const generateImageFromEntry = async () => {
                 </Tag>
             </div>
             <div class="flex flex-col content-center mt-4">
-                <Button @click="generateImageFromEntry">Generate Image</Button>
-                <!-- <img src="https://placecats.com/bella/300/200" class="rounded-xl"> -->
-                <LoadingSpinner v-if="loadingState" class="mt-4">
-                    Generating your image...
-                </LoadingSpinner>
-                <img :src="imageUrl" class="rounded-xl mt-4" v-if="imageUrl">
+                <Button @click="generateImageFromEntry" :is-loading="loadingState">Generate Image</Button>
+                <img v-if="imageUrl" :src="imageUrl" class="rounded-xl mt-4">
             </div>
             <Tag class="mt-4">suggestion: {{ entry.analysis.suggestion }}
             </Tag>
