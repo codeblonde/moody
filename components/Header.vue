@@ -9,9 +9,9 @@ import Button from './Button.vue';
             <h1 class="text-2xl font-semibold text-pink-400 ml-4">
                 <slot />
             </h1>
-            <Button class="mr-4">
+            <!-- <Button class="mr-4">
                 Sign In
-            </Button>
+            </Button> -->
         </div>
     </header>
 </template>

@@ -12,6 +12,8 @@ const pageTitle = computed(() => {
             return "Mood Tracking"
         case "journal-history":
             return "Journal History"
+        default:
+            return "Journal Entry"
     }
 
 })
