@@ -24,11 +24,11 @@ After submitting an entry, you will get an AI-driven analysis that includes:
 
 For each journal entry you can generate a custom image capturing the events you wrote about and mood you were in.
 
-### 📅 History Tracking
+### 📅 Journal History
 
 You can browse all past journal entries and their mood analyses.Navigate to any entry to revisit your state of mind or what you were doing on that particular day.
 
-### 📅 Tracking
+### 📈 Tracking
 
 In the tracking section, you can view a 7-day mood trend chart to track your emotional journey.
 
