@@ -42,40 +42,42 @@ In the tracking section, you can view a 7-day mood trend chart to track your emo
 ## 🚀 Getting Started
 
 1. Clone the Repo
-   ´´´bash
-   git clone https://github.com/your-username/mood-journal.git
-   cd mood-journal
-   ´´´
+
+```bash
+   git clone https://github.com/your-username/moody.git
+   cd moody
+```
 
 2. Install Dependencies
-   ´´´bash
-   npm install
-   ´´´
+
+```bash
+  npm install
+```
 
 3. Set Environment Variables
    Create a .env file and add:
 
-´´´bash
+```bash
 OPENAI_API_KEY=your_openai_key
 REPLICATE_API_TOKEN=your_replicate_token
 TRUSO_DATABASE_URL=your_turso_db_url
 TRUSO_AUTH_TOKEN=your_turso_key
-´´´
+```
 
 4. Start Dev Server
 
-´´´bash
+```bash
 npm run dev
-´´´
+```
 
 ## 📂 Project Structure
 
-´´´bash
+```js
 components/ // Vue frontend components
-pages/ // Nuxt page components
-server/ // API routes and backend logic
-db/ // Drizzle schema
-´´´
+pages/      // Nuxt page components
+server/     // API routes and backend logic
+db/         // Drizzle schema
+```
 
 📈 FurtherIdeas
 
