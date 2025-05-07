@@ -34,10 +34,12 @@ In the tracking section, you can view a 7-day mood trend chart to track your emo
 
 ## 🛠 Tech Stack
 
-| Frontend | Nuxt, Vue 3, TypeScript |
-| Backend | Turso DB, Drizzle ORM |
+| Layer       | Tooling                   |
+| ----------- | ------------------------- |
+| Frontend    | Nuxt, Vue 3, TypeScript   |
+| Backend     | Turso DB, Drizzle ORM     |
 | AI Services | OpenAI API, Replicate API |
-| Styling/UI | Tailwind CSS, Chart JS |
+| Styling/UI  | Tailwind CSS, Chart JS    |
 
 ## 🚀 Getting Started
 
